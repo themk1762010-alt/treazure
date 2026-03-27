@@ -4,8 +4,13 @@ import React, { useState } from "react";
 export default function Home() {
   const [search, setSearch] = useState("");
 
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const categories = [
     {
+      id: "tech",
       name: "TECH",
       sub: [
         {
@@ -76,8 +81,8 @@ export default function Home() {
         },
       ],
     },
-
     {
+      id: "lifestyle",
       name: "LIFESTYLE",
       sub: [
         {
@@ -104,8 +109,8 @@ export default function Home() {
         },
       ],
     },
-
     {
+      id: "trending",
       name: "TRENDING 🔥",
       sub: [
         {
@@ -123,7 +128,6 @@ export default function Home() {
     },
   ];
 
-  // FILTER
   const filteredCategories = categories.map((cat) => ({
     ...cat,
     sub: cat.sub.map((sub) => ({
@@ -140,59 +144,55 @@ export default function Home() {
       {/* 🔥 NAVBAR */}
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
           alignItems: "center",
-          marginBottom: "20px",
+          marginBottom: "30px",
         }}
       >
         {/* LEFT */}
         <div style={{ display: "flex", gap: "20px", fontWeight: "bold" }}>
-          <span>TECH</span>
-          <span>LIFESTYLE</span>
-          <span>TRENDING 🔥</span>
+          <button onClick={() => scrollTo("tech")} style={navBtn}>TECH</button>
+          <button onClick={() => scrollTo("lifestyle")} style={navBtn}>LIFESTYLE</button>
+          <button onClick={() => scrollTo("trending")} style={navBtn}>
+            TRENDING 🔥
+          </button>
         </div>
 
-        {/* CENTER */}
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: "8px",
-            borderRadius: "10px",
-            border: "none",
-            width: "250px",
-          }}
-        />
-
-        {/* RIGHT */}
-        <div>
-          <button
+        {/* CENTER SEARCH */}
+        <div style={{ textAlign: "center" }}>
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             style={{
-              padding: "8px 15px",
-              borderRadius: "10px",
+              padding: "10px",
+              borderRadius: "12px",
               border: "none",
-              background: "white",
-              color: "black",
-              cursor: "pointer",
+              width: "300px",
+              textAlign: "center",
             }}
-          >
-            Contact Us
-          </button>
+          />
+        </div>
+
+        {/* RIGHT CONTACT */}
+        <div style={{ textAlign: "right" }}>
+          <a href="mailto:themk1762010@gmail.com">
+            <button style={contactBtn}>Contact Us</button>
+          </a>
         </div>
       </div>
 
       {/* TITLE */}
-      <h1 style={{ textAlign: "center" }}>TREAZURE</h1>
-      <p style={{ textAlign: "center" }}>
-        Smart deals. Zero waste. Only the best picks.
-      </p>
+      <div style={{ textAlign: "center", marginBottom: "20px" }}>
+        <h1 style={{ fontWeight: "bold", letterSpacing: "2px" }}>TREAZURE</h1>
+        <p>Smart deals. Zero waste. Only the best picks.</p>
+      </div>
 
       {/* PRODUCTS */}
       {filteredCategories.map((cat, i) => (
-        <div key={i} style={{ marginTop: "30px" }}>
+        <div key={i} id={cat.id} style={{ marginTop: "40px" }}>
           <h2>{cat.name}</h2>
 
           {cat.sub.map((sub, j) => (
@@ -201,34 +201,13 @@ export default function Home() {
 
               <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
                 {sub.items.map((p, k) => (
-                  <div
-                    key={k}
-                    style={{
-                      background: "#1c1c1c",
-                      padding: "15px",
-                      borderRadius: "12px",
-                      width: "220px",
-                    }}
-                  >
+                  <div key={k} style={card}>
                     <h4>{p.name}</h4>
                     <p>{p.price}</p>
                     <p>{p.rating}</p>
 
                     <a href={p.link} target="_blank">
-                      <button
-                        style={{
-                          marginTop: "10px",
-                          width: "100%",
-                          backgroundColor: "white",
-                          color: "black",
-                          padding: "10px",
-                          borderRadius: "12px",
-                          border: "none",
-                          cursor: "pointer",
-                        }}
-                      >
-                        View Deal 🔥
-                      </button>
+                      <button style={dealBtn}>View Deal 🔥</button>
                     </a>
                   </div>
                 ))}
@@ -240,3 +219,40 @@ export default function Home() {
     </div>
   );
 }
+
+/* 🎨 STYLES */
+
+const navBtn = {
+  background: "none",
+  border: "none",
+  color: "white",
+  cursor: "pointer",
+  fontWeight: "bold",
+};
+
+const contactBtn = {
+  padding: "8px 15px",
+  borderRadius: "10px",
+  border: "none",
+  background: "white",
+  color: "black",
+  cursor: "pointer",
+};
+
+const card = {
+  background: "#1c1c1c",
+  padding: "15px",
+  borderRadius: "12px",
+  width: "220px",
+};
+
+const dealBtn = {
+  marginTop: "10px",
+  width: "100%",
+  backgroundColor: "white",
+  color: "black",
+  padding: "10px",
+  borderRadius: "12px",
+  border: "none",
+  cursor: "pointer",
+};
