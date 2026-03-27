@@ -1,100 +1,186 @@
 "use client";
-import { useState } from "react";
+import React from "react";
 
 export default function Home() {
-  const [search, setSearch] = useState("");
+  const categories = [
+    {
+      name: "TECH",
+      sub: [
+        {
+          name: "PHONES",
+          items: [
+            {
+              name: "REALME NARZO 80 PRO 5G",
+              price: "₹19999",
+              rating: "⭐ 4.3 (2.2K reviews)",
+              link: "https://amzn.to/3Pu5OV1",
+            },
+          ],
+        },
+        {
+          name: "LAPTOPS",
+          items: [
+            {
+              name: "HP 15 13TH GEN i3",
+              price: "₹45990",
+              rating: "⭐ 4.1 (2.2K reviews)",
+              link: "https://amzn.to/4t43Nx9",
+            },
+          ],
+        },
+        {
+          name: "SPEAKERS",
+          items: [
+            {
+              name: "TRIBIT XSOUND GO",
+              price: "₹2843",
+              rating: "⭐ 4.3 (18K reviews)",
+              link: "https://amzn.to/4bxkCec",
+            },
+          ],
+        },
+        {
+          name: "TABLETS",
+          items: [
+            {
+              name: "HONOR PAD X9",
+              price: "₹15126",
+              rating: "⭐ 4.3 (1.8K reviews)",
+              link: "https://amzn.to/4dGv44g",
+            },
+          ],
+        },
+        {
+          name: "EARBUDS",
+          items: [
+            {
+              name: "ONEPLUS NORD BUDS 3r",
+              price: "₹1599",
+              rating: "⭐ 4.2 (40K reviews)",
+              link: "https://amzn.to/3NJisyH",
+            },
+          ],
+        },
+        {
+          name: "SMARTWATCHES",
+          items: [
+            {
+              name: "BOAT WAVE CALL 3",
+              price: "₹1399",
+              rating: "⭐ 4.1 (25K reviews)",
+              link: "https://amzn.to/4c3MQgE",
+            },
+          ],
+        },
+      ],
+    },
 
-  const products = [
-    { name: "REALME NARZO 80 PRO 5G", price: 19999, rating: "4.3 ⭐", category: "tech", link: "https://amzn.to/3Pu5OV1" },
-    { name: "HP 15 i3 LAPTOP", price: 45990, rating: "4.1 ⭐", category: "tech", link: "https://amzn.to/4t43Nx9" },
-    { name: "TRIBIT SPEAKER", price: 2843, rating: "4.3 ⭐", category: "tech", link: "https://amzn.to/4bxkCec" },
-    { name: "HONOR PAD X9", price: 15126, rating: "4.3 ⭐", category: "tech", link: "https://amzn.to/4dGv44g" },
-    { name: "ONEPLUS NORD BUDS", price: 1599, rating: "4.2 ⭐", category: "tech", link: "https://amzn.to/3NJisyH" },
-    { name: "BOAT SMARTWATCH", price: 1399, rating: "4.1 ⭐", category: "tech", link: "https://amzn.to/4c3MQgE" },
+    {
+      name: "LIFESTYLE",
+      sub: [
+        {
+          name: "SHOES",
+          items: [
+            {
+              name: "U.S. POLO SHOES",
+              price: "₹2199",
+              rating: "⭐ 4.4 (1K reviews)",
+              link: "https://amzn.to/4bwnyHX",
+            },
+          ],
+        },
+        {
+          name: "WATCHES",
+          items: [
+            {
+              name: "TITAN KARISHMA WATCH",
+              price: "₹1994",
+              rating: "⭐ 4.4 (1.4K reviews)",
+              link: "https://amzn.to/4t1w7Ae",
+            },
+          ],
+        },
+      ],
+    },
 
-    { name: "U.S POLO SHOES", price: 2199, rating: "4.4 ⭐", category: "lifestyle", link: "https://amzn.to/4bwnyHX" },
-    { name: "TITAN WATCH", price: 1994, rating: "4.4 ⭐", category: "lifestyle", link: "https://amzn.to/4t1w7Ae" },
-
-    { name: "WEIGHT MACHINE", price: 699, rating: "4.1 ⭐", category: "trending", link: "https://amzn.to/3NnDq6o" },
+    {
+      name: "TRENDING 🔥",
+      sub: [
+        {
+          name: "TOP PICKS",
+          items: [
+            {
+              name: "HEALTHSENSE WEIGHT MACHINE",
+              price: "₹699",
+              rating: "⭐ 4.1 (8.3K reviews)",
+              link: "https://amzn.to/3NnDq6o",
+            },
+          ],
+        },
+      ],
+    },
   ];
 
-  const filtered = products.filter(p =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const categories = ["tech", "lifestyle", "trending"];
-
   return (
-    <div style={{ background: "#0a0a0a", color: "white", minHeight: "100vh", padding: "20px" }}>
-      
-      {/* NAVBAR */}
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        
-        <div>
-          {categories.map(c => (
-            <a key={c} href={`#${c}`} style={{ marginRight: "15px", color: "white" }}>
-              {c.toUpperCase()}
-            </a>
-          ))}
-        </div>
-
-        <h1 style={{ textAlign: "center" }}>TREAZURE</h1>
-
-        <a href="mailto:themk1762010@gmail.com" style={{ color: "white" }}>
-          Contact Us
-        </a>
-
-      </div>
-
-      {/* SEARCH */}
-      <div style={{ textAlign: "center", marginTop: "30px" }}>
-        <input
-          placeholder="Search products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: "15px",
-            width: "50%",
-            borderRadius: "30px",
-            border: "none"
-          }}
-        />
-      </div>
-
-      {/* TRUST TEXT */}
-      <p style={{ textAlign: "center", marginTop: "15px", color: "#aaa" }}>
+    <div style={{ padding: "20px", color: "white" }}>
+      <h1 style={{ textAlign: "center" }}>TREAZURE</h1>
+      <p style={{ textAlign: "center" }}>
         Smart deals. Zero waste. Only the best picks.
       </p>
 
-      {/* PRODUCTS */}
-      {categories.map(cat => (
-        <div key={cat} id={cat} style={{ marginTop: "40px" }}>
-          <h2>{cat.toUpperCase()}</h2>
+      {categories.map((cat, i) => (
+        <div key={i} style={{ marginTop: "30px" }}>
+          <h2>{cat.name}</h2>
 
-          <div style={{ display: "flex", overflowX: "auto" }}>
-            {filtered
-              .filter(p => p.category === cat)
-              .map((p, i) => (
-                <div key={i} style={{
-                  minWidth: "200px",
-                  background: "#111",
-                  padding: "15px",
-                  marginRight: "15px",
-                  borderRadius: "10px"
-                }}>
-                  <h3>{p.name}</h3>
-                  <p>₹{p.price}</p>
-                  <p>{p.rating}</p>
+          {cat.sub.map((sub, j) => (
+            <div key={j} style={{ marginBottom: "20px" }}>
+              <h3 style={{ opacity: 0.7 }}>{sub.name}</h3>
 
-                  <a href={p.link} target="_blank">
-                    <button style={{ marginTop: "10px" }}>View Deal</button>
-                  </a>
-                </div>
-              ))}
-          </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "15px",
+                  flexWrap: "wrap",
+                }}
+              >
+                {sub.items.map((p, k) => (
+                  <div
+                    key={k}
+                    style={{
+                      background: "#1c1c1c",
+                      padding: "15px",
+                      borderRadius: "12px",
+                      width: "220px",
+                    }}
+                  >
+                    <h4 style={{ marginBottom: "5px" }}>{p.name}</h4>
+                    <p style={{ fontWeight: "bold" }}>{p.price}</p>
+                    <p style={{ color: "#ccc" }}>{p.rating}</p>
+
+                    <a href={p.link} target="_blank">
+                      <button
+                        style={{
+                          marginTop: "12px",
+                          width: "100%",
+                          backgroundColor: "white",
+                          color: "black",
+                          padding: "10px",
+                          borderRadius: "12px",
+                          border: "none",
+                          cursor: "pointer",
+                          fontWeight: "500",
+                        }}
+                      >
+                        View Deal 🔥
+                      </button>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       ))}
-
     </div>
   );
 }
