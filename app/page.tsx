@@ -1,7 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
+
   const categories = [
     {
       name: "TECH",
@@ -121,14 +123,75 @@ export default function Home() {
     },
   ];
 
+  // FILTER
+  const filteredCategories = categories.map((cat) => ({
+    ...cat,
+    sub: cat.sub.map((sub) => ({
+      ...sub,
+      items: sub.items.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      ),
+    })),
+  }));
+
   return (
     <div style={{ padding: "20px", color: "white" }}>
+      
+      {/* 🔥 NAVBAR */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        {/* LEFT */}
+        <div style={{ display: "flex", gap: "20px", fontWeight: "bold" }}>
+          <span>TECH</span>
+          <span>LIFESTYLE</span>
+          <span>TRENDING 🔥</span>
+        </div>
+
+        {/* CENTER */}
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "8px",
+            borderRadius: "10px",
+            border: "none",
+            width: "250px",
+          }}
+        />
+
+        {/* RIGHT */}
+        <div>
+          <button
+            style={{
+              padding: "8px 15px",
+              borderRadius: "10px",
+              border: "none",
+              background: "white",
+              color: "black",
+              cursor: "pointer",
+            }}
+          >
+            Contact Us
+          </button>
+        </div>
+      </div>
+
+      {/* TITLE */}
       <h1 style={{ textAlign: "center" }}>TREAZURE</h1>
       <p style={{ textAlign: "center" }}>
         Smart deals. Zero waste. Only the best picks.
       </p>
 
-      {categories.map((cat, i) => (
+      {/* PRODUCTS */}
+      {filteredCategories.map((cat, i) => (
         <div key={i} style={{ marginTop: "30px" }}>
           <h2>{cat.name}</h2>
 
@@ -136,13 +199,7 @@ export default function Home() {
             <div key={j} style={{ marginBottom: "20px" }}>
               <h3 style={{ opacity: 0.7 }}>{sub.name}</h3>
 
-              <div
-                style={{
-                  display: "flex",
-                  gap: "15px",
-                  flexWrap: "wrap",
-                }}
-              >
+              <div style={{ display: "flex", gap: "15px", flexWrap: "wrap" }}>
                 {sub.items.map((p, k) => (
                   <div
                     key={k}
@@ -153,14 +210,14 @@ export default function Home() {
                       width: "220px",
                     }}
                   >
-                    <h4 style={{ marginBottom: "5px" }}>{p.name}</h4>
-                    <p style={{ fontWeight: "bold" }}>{p.price}</p>
-                    <p style={{ color: "#ccc" }}>{p.rating}</p>
+                    <h4>{p.name}</h4>
+                    <p>{p.price}</p>
+                    <p>{p.rating}</p>
 
                     <a href={p.link} target="_blank">
                       <button
                         style={{
-                          marginTop: "12px",
+                          marginTop: "10px",
                           width: "100%",
                           backgroundColor: "white",
                           color: "black",
@@ -168,7 +225,6 @@ export default function Home() {
                           borderRadius: "12px",
                           border: "none",
                           cursor: "pointer",
-                          fontWeight: "500",
                         }}
                       >
                         View Deal 🔥
